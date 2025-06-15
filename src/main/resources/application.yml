@@ -28,3 +28,8 @@ logging:
 jwt:
   tokenSignKey: JamieBolg # 密钥
   tokenExpiration: 1 # 访问令牌过期时间（毫秒）
+
+cors:
+  allowed-origins: "*"
+  allow-credentials: true
+  max-age: 3600
