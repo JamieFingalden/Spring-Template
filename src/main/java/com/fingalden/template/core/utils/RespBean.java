@@ -1,5 +1,6 @@
 package com.fingalden.template.core.utils;
 
+import com.fingalden.template.common.constant.HttpStatus;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -17,12 +18,7 @@ public class RespBean {
     private Boolean success;
 
     /**
-     * 响应状态码：
-     * 200-成功
-     * 400-请求错误
-     * 401-未授权
-     * 403-禁止访问
-     * 500-服务器内部错误
+     * 响应状态码
      */
     private Integer code;
 
@@ -50,8 +46,8 @@ public class RespBean {
     public static RespBean success() {
         RespBean r = new RespBean();
         r.setSuccess(true);
-        r.setCode(200);
-        r.setMessage("成功");
+        r.setCode(HttpStatus.SUCCESS);
+        r.setMessage(HttpStatus.SUCCESS_MSG);
         return r;
     }
 
@@ -64,7 +60,7 @@ public class RespBean {
     public static RespBean success(String message) {
         RespBean r = new RespBean();
         r.setSuccess(true);
-        r.setCode(200);
+        r.setCode(HttpStatus.SUCCESS);
         r.setMessage(message);
         return r;
     }
@@ -79,8 +75,8 @@ public class RespBean {
     public static RespBean success(String key, Object value) {
         RespBean r = new RespBean();
         r.setSuccess(true);
-        r.setCode(200);
-        r.setMessage("成功");
+        r.setCode(HttpStatus.SUCCESS);
+        r.setMessage(HttpStatus.SUCCESS_MSG);
         r.getData().put(key, value);
         return r;
     }
@@ -96,7 +92,7 @@ public class RespBean {
     public static RespBean success(String message, String key, Object value) {
         RespBean r = new RespBean();
         r.setSuccess(true);
-        r.setCode(200);
+        r.setCode(HttpStatus.SUCCESS);
         r.setMessage(message);
         r.getData().put(key, value);
         return r;
@@ -110,8 +106,8 @@ public class RespBean {
     public static RespBean error() {
         RespBean r = new RespBean();
         r.setSuccess(false);
-        r.setCode(500);
-        r.setMessage("失败");
+        r.setCode(HttpStatus.INTERNAL_SERVER_ERROR);
+        r.setMessage(HttpStatus.INTERNAL_SERVER_ERROR_MSG);
         return r;
     }
 
@@ -124,7 +120,7 @@ public class RespBean {
     public static RespBean error(String message) {
         RespBean r = new RespBean();
         r.setSuccess(false);
-        r.setCode(500);
+        r.setCode(HttpStatus.INTERNAL_SERVER_ERROR);
         r.setMessage(message);
         return r;
     }
