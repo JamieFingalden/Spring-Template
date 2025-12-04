@@ -1,6 +1,6 @@
 spring:
   application:
-    name: BolgBackend
+    name: SpringTemplate
   datasource:
     url: jdbc:mysql://localhost:3306/database?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: username
@@ -18,18 +18,49 @@ spring:
           max-wait: 100ms # 连接池最大等待时间
   jackson:
     time-zone: Asia/Shanghai
+  jpa:
+    hibernate:
+      ddl-auto: update # 自动更新数据库表结构
+    show-sql: true # 显示SQL语句
+    properties:
+      hibernate:
+        format_sql: true # 格式化SQL语句
+        dialect: org.hibernate.dialect.MySQL8Dialect # MySQL方言
+  security:
+    user:
+      name: admin # 默认用户名，仅用于测试
+      password: admin # 默认密码，仅用于测试
 
+# JWT配置
+jwt:
+  secret: your-secret-key-change-in-production # 密钥，生产环境请使用至少256位的随机字符串
+  expire: 604800000 # 访问令牌过期时间（毫秒），默认7天
+  refresh-expire: 2592000000 # 刷新令牌过期时间（毫秒），默认30天
 
+# CORS配置
+cors:
+  allowed-origin-patterns: "*" # 允许的来源模式
+  allowed-headers: "*" # 允许的请求头
+  allowed-methods: "*" # 允许的HTTP方法
+  exposed-headers: "Authorization, Refresh-Token" # 暴露的响应头
+  allow-credentials: true # 是否允许发送Cookie
+  max-age: 3600 # 预检请求的缓存时间（秒）
+
+# 日志配置
 logging:
   level:
-    org.springframework.ai.chat.client.advisor: debug
-    com.fingalden.bolg: debug
+    org.springframework.security: debug # Spring Security日志级别
+    com.fingalden.template: debug # 应用日志级别
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" # 控制台日志格式
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" # 文件日志格式
 
-jwt:
-  tokenSignKey: JamieBolg # 密钥
-  tokenExpiration: 1 # 访问令牌过期时间（毫秒）
-
-cors:
-  allowed-origins: "*"
-  allow-credentials: true
-  max-age: 3600
+# 应用配置
+server:
+  port: 8080 # 服务器端口
+  servlet:
+    context-path: /api # 应用上下文路径
+  tomcat:
+    uri-encoding: UTF-8 # URI编码
+    max-threads: 200 # 最大线程数
+    min-spare-threads: 5 # 最小空闲线程数
